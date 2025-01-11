@@ -1,8 +1,7 @@
-import React from "react";
-// import { MapboxMap } from "react-map-gl";
-import { useParams, Link } from "react-router-dom";
-import Map from "../Map";
-import { LoadScript } from "@react-google-maps/api";
+import React, { useContext, useEffect,useState } from "react";
+import { WishlistContext } from "./WishlistContext";
+import { Link } from "react-router-dom";
+import ImageSlider from "./ImageSlider"; // Ensure ImageSlider is properly imported
 
 const properties = [
     {
@@ -12,11 +11,6 @@ const properties = [
       rating: 3.82,
       availability: "Apr 5 - 10",
       tags: ["Most Liked"],
-      price: "$150/night",
-      sector: "Sector 55",
-      fullAddress: "Sushant Lok 2, Sector 55, Gurgaon, Haryana, 122011",
-      latitude: 28.4595,
-      longitude: 77.0266,
       images: [
         "https://i.pinimg.com/236x/a7/a2/14/a7a214785bb64212455d72f0c3d18977.jpg",
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
@@ -24,8 +18,6 @@ const properties = [
         "https://i.pinimg.com/236x/b4/e3/71/b4e3713f07320afe56d14008f7f2d280.jpg",
         "https://i.pinimg.com/236x/b8/4e/ef/b84eef4c8cab76040d171018c266efa9.jpg",
       ],
-      facilities:["2 parks","2 Pools","2 Schools"],
-      Amenities:"house"
     },
     {
       id: 2,
@@ -34,12 +26,6 @@ const properties = [
       rating: 5.0,
       availability: "Mar 9 - 14",
       tags: [],
-      price: "$120/night",
-      sector: "Sector 3",
-      fullAddress:
-        "Rainbow Heights, Sector 3, HSR Layout, Bengaluru, Karnataka, 560102",
-      latitude: 12.9141,
-      longitude: 77.6481,
       images: [
         "https://i.pinimg.com/236x/b4/e3/71/b4e3713f07320afe56d14008f7f2d280.jpg",
         "https://i.pinimg.com/236x/f4/d8/24/f4d824dca3de341d6f242c2659e2d81e.jpg",
@@ -47,8 +33,6 @@ const properties = [
         "https://i.pinimg.com/236x/b8/4e/ef/b84eef4c8cab76040d171018c266efa9.jpg",
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
       ],
-      facilities:["2 parks","2 Pools","2 Schools"],
-      Amenities:"house"
     },
     {
       id: 3,
@@ -57,11 +41,6 @@ const properties = [
       rating: 2.82,
       availability: "Mar 3 - 8",
       tags: ["Most Liked"],
-      price: "$200/night",
-      sector: "Main Street",
-      fullAddress: "Walden, Main Street, Colorado, United States, 80480",
-      latitude: 40.7317,
-      longitude: -106.2839,
       images: [
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
         "https://i.pinimg.com/236x/a7/a2/14/a7a214785bb64212455d72f0c3d18977.jpg",
@@ -69,8 +48,6 @@ const properties = [
         "https://i.pinimg.com/236x/b4/e3/71/b4e3713f07320afe56d14008f7f2d280.jpg",
         "https://i.pinimg.com/236x/f4/d8/24/f4d824dca3de341d6f242c2659e2d81e.jpg",
       ],
-      facilities:["1 parks","4 Pools","2 Schools"],
-      Amenities:"apartment"
     },
     {
       id: 4,
@@ -79,11 +56,6 @@ const properties = [
       rating: 5.0,
       availability: "Apr 26 - May 1",
       tags: ["Most Liked"],
-      price: "$180/night",
-      sector: "Via del Chianti",
-      fullAddress: "Via del Chianti, Poggibonsi, Siena, Tuscany, Italy, 53036",
-      latitude: 43.4707,
-      longitude: 11.1524,
       images: [
         "https://i.pinimg.com/236x/b8/4e/ef/b84eef4c8cab76040d171018c266efa9.jpg",
         "https://i.pinimg.com/236x/b4/e3/71/b4e3713f07320afe56d14008f7f2d280.jpg",
@@ -91,9 +63,6 @@ const properties = [
         "https://i.pinimg.com/236x/f4/d8/24/f4d824dca3de341d6f242c2659e2d81e.jpg",
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
       ],
-      facilities:["2 parks","2 Pools","1 Schools"],
-      Amenities:"apartment"
-
     },
     {
       id: 5,
@@ -102,11 +71,6 @@ const properties = [
       rating: 4.5,
       availability: "May 12 - 18",
       tags: ["New Listing"],
-      price: "$160/night",
-      sector: "Oak Ridge",
-      fullAddress: "Green Valley, Oak Ridge, California, United States, 94534",
-      latitude: 38.2736,
-      longitude: -122.0236,
       images: [
         "https://i.pinimg.com/236x/a7/a2/14/a7a214785bb64212455d72f0c3d18977.jpg",
         "https://i.pinimg.com/236x/f4/d8/24/f4d824dca3de341d6f242c2659e2d81e.jpg",
@@ -114,8 +78,6 @@ const properties = [
         "https://i.pinimg.com/236x/b8/4e/ef/b84eef4c8cab76040d171018c266efa9.jpg",
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
       ],
-      facilities:["1 parks","2 Pools","2 Schools"],
-      Amenities:"house"
     },
     {
       id: 6,
@@ -124,11 +86,6 @@ const properties = [
       rating: 4.8,
       availability: "Jun 1 - 6",
       tags: ["Luxury"],
-      price: "$220/night",
-      sector: "Ocean Boulevard",
-      fullAddress: "Palm Beach, Ocean Boulevard, Florida, United States, 33480",
-      latitude: 26.7056,
-      longitude: -80.0364,
       images: [
         "https://i.pinimg.com/236x/f4/d8/24/f4d824dca3de341d6f242c2659e2d81e.jpg",
         "https://i.pinimg.com/236x/b8/4e/ef/b84eef4c8cab76040d171018c266efa9.jpg",
@@ -136,8 +93,6 @@ const properties = [
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
         "https://i.pinimg.com/236x/a7/a2/14/a7a214785bb64212455d72f0c3d18977.jpg",
       ],
-      facilities:["2 parks","2 Pools","2 Schools"],
-      Amenities:"apartment"
     },
     {
       id: 7,
@@ -146,11 +101,6 @@ const properties = [
       rating: 4.9,
       availability: "Jul 4 - 10",
       tags: ["Exclusive"],
-      price: "$300/night",
-      sector: "Rodeo Drive",
-      fullAddress: "Beverly Hills, Rodeo Drive, California, United States, 90210",
-      latitude: 34.0736,
-      longitude: -118.4004,
       images: [
         "https://i.pinimg.com/236x/b4/e3/71/b4e3713f07320afe56d14008f7f2d280.jpg",
         "https://i.pinimg.com/236x/a7/a2/14/a7a214785bb64212455d72f0c3d18977.jpg",
@@ -158,8 +108,6 @@ const properties = [
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
         "https://i.pinimg.com/236x/b8/4e/ef/b84eef4c8cab76040d171018c266efa9.jpg",
       ],
-      facilities:["4 parks","2 Pools","2 Schools"],
-      Amenities:"house"
     },
     {
       id: 8,
@@ -168,12 +116,6 @@ const properties = [
       rating: 4.6,
       availability: "Aug 15 - 20",
       tags: ["Hot Deal"],
-      price: "$250/night",
-      sector: "Central Park West",
-      fullAddress:
-        "Central Park West, Manhattan, New York, NY, United States, 10024",
-      latitude: 40.7851,
-      longitude: -73.9683,
       images: [
         "https://preview.redd.it/mqa946mcv8m61.jpg?width=1080&crop=smart&auto=webp&s=130e4b4a46a6a2a9c851ca83ee6c596471e7e7e0",
         "https://i.pinimg.com/236x/b8/4e/ef/b84eef4c8cab76040d171018c266efa9.jpg",
@@ -181,70 +123,80 @@ const properties = [
         "https://i.pinimg.com/236x/b4/e3/71/b4e3713f07320afe56d14008f7f2d280.jpg",
         "https://i.pinimg.com/236x/f4/d8/24/f4d824dca3de341d6f242c2659e2d81e.jpg",
       ],
-      facilities:["2 parks","2 Pools","2 Schools"],
-      Amenities:"house"
     },
   ];
+
+  const Wishlist = () => {
+    const { wishlist, toggleWishlist } = useContext(WishlistContext);
   
+    const [filteredProperties, setFilteredProperties] = useState([]);
+  
+    // Update filtered properties whenever the wishlist changes
+    useEffect(() => {
+      const filteredData = properties.filter((prop) => wishlist.includes(prop.id));
+      setFilteredProperties(filteredData);
+    }, [wishlist]); // Dependency array to re-run when wishlist changes
+  
+    return (
+      <div>
+        {filteredProperties.length === 0 ? (
+          <h1 className="wishlistfallback">No data in wishlist!</h1>
+        ) : (
+          <div className="grid">
+            {filteredProperties.map((prop) => (
+                <Link className="custom-link" to={`/product/${prop.id}`}>
+                
+              <div className="card" key={prop.id}>
+                <div className="img-container">
+                  <div className="img-header">
+                    <span
+                      className={`tag ${
+                        prop.tags.length === 0 ? "tag-empty" : ""
+                      }`}
+                    >
+                      {prop.tags.length > 0 ? prop.tags[0] : ""}
+                    </span>
+                    <img
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleWishlist(prop.id)}}
+                      src={
+                        wishlist.includes(prop.id) ? "/heart(1).svg" : "/heart.svg"
+                      }
+                      alt="Wishlist Icon"
+                    />
+                  </div>
+                  <div className="prop-image">
+                    <ImageSlider images={prop.images} />
+                  </div>
+                </div>
+                  <div className="middle-container">
+                    <div className="views">
+                      <img src="/Show.svg" alt="Views Icon" />
+                      {prop.views}
+                    </div>
+                    <div
+                      className={
+                        prop.rating > 4 ? "more-rating" : "less-rating"
+                      }
+                    >
+                      <img
+                        src={prop.rating < 4 ? "/Star.svg" : "/Star_green.svg"}
+                        alt="Rating Icon"
+                      />
+                      {prop.rating}
+                    </div>
+                  </div>
+                  <div className="prop-address">{prop.address}</div>
+                  <div className="dates">{prop.availability}</div>
+              </div>
+              </Link>
 
-const ProductDetails = () => {
-  const { id } = useParams();
-  const product = properties.find((prod) => prod.id === parseInt(id));
-  console.log(product);
-  if (!product) {
-    return <h2>Product not found</h2>;
-  }
-
-  return (
-    <div className="product-details-container">
-      <div className="product-image-container">
-        <div className="product-img-header">
-          
-          <span
-                className={`product-img-tag tag ${product.tags.length === 0 ? "tag-empty" : ""}`}
-              >
-                {product.tags.length > 0 ? product.tags[0] : ""}
-              </span>
-        </div>
-        <img className="product-details-img" src={product.images[0]} />
-      </div>
-      <div className="product-address-detials">
-        <div className="left-container">
-          <div className="address"><img src="/Location.svg" />{product.address}</div>
-          <div className="sector">{product.sector}</div>
-        </div>
-        <div className="right-container">
-          <div className="price">{product.price}</div>
-          <div className="EMI">EMI Available</div>
-        </div>
-      </div>
-      <div className="location-container">
-        <div className="full-address-container">
-          <h3 style={{color:"#252B5C",fontSize:"18px"}}>Location</h3>
-          <div className="full-address">
-            <div className="inside-address"><img style={{marginRight:"10px"}} src="/Group.svg" />{product.fullAddress}</div>
+            ))}
           </div>
-        </div>
-        <div className="map-container">
-
-            <Map latitude={product.latitude} longitude={product.longitude}/>
-            <div className="map-footer">View Map</div>
-        
-        </div>
-        <div className="facilities-container">
-            {product.facilities.map((facility)=>{
-                return <div className="facility">{facility}</div>
-            })}
-        </div>
-
-        <h2 className="property-ammenty-title">Property Ammenties</h2>
-        <div className="prop-amen-container">
-            <div className={`property ${product.Amenities=="house"?"activeprop":"inactiveprop"}`} >House</div>
-            <div className={`property ${product.Amenities=="apartment"?"activeprop":"inactiveprop"}`} >Apartments</div>
-        </div>
+        )}
       </div>
-    </div>
-  );
-};
-
-export default ProductDetails;
+    );
+  };
+  
+  export default Wishlist;

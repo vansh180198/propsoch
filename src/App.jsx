@@ -7,7 +7,7 @@ import Footer from "./Footer";
 import Grid from "./Grid";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductDetails from "./ProductDetails";
-
+import Wishlist from "./Wishlist";
 function App() {
   const { wishlist, toggleWishlist } = useContext(WishlistContext);
 
@@ -22,6 +22,8 @@ function App() {
 
           {/* Route for Product Details */}
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/wishlist" element={<Wishlist/>} />
+
         </Routes>
         <Footer />
 
