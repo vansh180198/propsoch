@@ -142,8 +142,8 @@ const Grid = () => {
                     onClick={() => toggleWishlist(prop.id)}
                     src={
                       wishlist.includes(prop.id)
-                        ? "../public/heart(1).svg"
-                        : "../public/heart.svg"
+                        ? "/heart(1).svg"
+                        : "/heart.svg"
                     }
                     alt="Wishlist Icon"
                   />

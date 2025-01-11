@@ -6,19 +6,19 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <span className="search">
-          <img src="../public/Search.svg" alt="Icon" />
+          <img src="/Search.svg" alt="Icon" />
           <div>Search</div>
         </span>
         <span className="wishlist">
-          <img src="../public/Search.svg" alt="Icon" />
+          <img src="/Search.svg" alt="Icon" />
           <div>Wishlist</div>
         </span>
         <span className="showmap">
-          <img src="../public/Search.svg" alt="Icon" />
+          <img src="/Search.svg" alt="Icon" />
           <div>Locate</div>
         </span>
         <span className="login">
-          <img src="../public/Search.svg" alt="Icon" />
+          <img src="/Search.svg" alt="Icon" />
           <div>Login</div>
         </span>
       </div>
