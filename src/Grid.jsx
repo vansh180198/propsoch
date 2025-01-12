@@ -142,7 +142,7 @@ const Grid = () => {
                 {prop.tags.length > 0 ? prop.tags[0] : ""}
               </span>
               <img
-                onClick={() =>{ 
+                onClick={(e) =>{ 
                     e.preventDefault();
                     toggleWishlist(prop.id)}}
                 src={
