@@ -1,5 +1,6 @@
 *{
-  margin:0
+  margin:0;
+  font-family: 'Poppins', sans-serif;
 }
 .container{
   display:flex;
@@ -32,6 +33,10 @@
   display:flex;
   justify-content:space-evenly
 
+}
+.active-footer-tab{
+  color:#E57601;
+  text-decoration:underline
 }
 .wishlistfallback{
   margin-left:20px;

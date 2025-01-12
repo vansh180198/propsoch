@@ -1,31 +1,51 @@
 import React from "react";
-import { Link } from "react-router-dom";
-// import "./Footer.css"; // Optional: Create separate styles for Footer
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
+  console.log(isActive("/"));
+  
+
   return (
     <footer className="footer">
-      <div className="footer-container" style={{cursor:"pointer"}}>
-        <Link to={"/"}><span className="search">
-          <img src="/Search.svg" alt="Icon" />
+      <div className="footer-container">
+        {/* Search */}
+        <Link to="/" className={`search ${isActive("/")?"active-footer-tab":""}` } style={{textDecoration:"none"}}>
+          <img
+            src={isActive("/") ? "/Search_active.svg" : "/Search.svg"}
+            alt="Search Icon"
+          />
           <div>Search</div>
-        </span></Link>
-        
-        <Link to={"/wishlist"}>
-        <span className="wishlist" style={{cursor:"pointer"}}>
-          <img src="/Heartfooter.svg" alt="Icon" />
-          <div>Wishlist</div>
-        </span>
         </Link>
-        
-        <span className="showmap" style={{cursor:"pointer"}}>
-          <img src="/Location_footer.svg" alt="Icon" />
+
+        {/* Wishlist */}
+        <Link to="/wishlist" className={`wishlist ${isActive("/wishlist")?"active-footer-tab":""}` } style={{textDecoration:"none"}}>
+          <img
+            src={isActive("/wishlist") ? "/Heartfooter_active.svg" : "/Heartfooter.svg"}
+            alt="Wishlist Icon"
+          />
+          <div>Wishlist</div>
+        </Link>
+
+        {/* Locate */}
+        <Link className={`showmap ${isActive("/locate")?"active-footer-tab":""}` } style={{textDecoration:"none"}}>
+          <img
+            src={isActive("/locate") ? "/Location_footer_active.svg" : "/Location_footer.svg"}
+            alt="Locate Icon"
+          />
           <div>Locate</div>
-        </span>
-        <span className="login" style={{cursor:"pointer"}}>
-          <img src="/Profile.svg" alt="Icon" />
+        </Link>
+
+        {/* Login */}
+        <Link className={`login ${isActive("/locate")?"active-footer-tab":""}` } style={{textDecoration:"none"}}>
+          <img
+            src={isActive("/login") ? "/Profile_active.svg" : "/Profile.svg"}
+            alt="Login Icon"
+          />
           <div>Login</div>
-        </span>
+        </Link>
       </div>
     </footer>
   );
