@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import Map from "../Map";
 import { LoadScript } from "@react-google-maps/api";
 
+
 const properties = [
     {
       id: 1,
@@ -12,7 +13,7 @@ const properties = [
       rating: 3.82,
       availability: "Apr 5 - 10",
       tags: ["Most Liked"],
-      price: "$150/night",
+      price: "1.5 Cr",
       sector: "Sector 55",
       fullAddress: "Sushant Lok 2, Sector 55, Gurgaon, Haryana, 122011",
       latitude: 28.4595,
@@ -34,7 +35,7 @@ const properties = [
       rating: 5.0,
       availability: "Mar 9 - 14",
       tags: [],
-      price: "$120/night",
+      price: "2 Cr",
       sector: "Sector 3",
       fullAddress:
         "Rainbow Heights, Sector 3, HSR Layout, Bengaluru, Karnataka, 560102",
@@ -57,7 +58,7 @@ const properties = [
       rating: 2.82,
       availability: "Mar 3 - 8",
       tags: ["Most Liked"],
-      price: "$200/night",
+      price: "2 Cr",
       sector: "Main Street",
       fullAddress: "Walden, Main Street, Colorado, United States, 80480",
       latitude: 40.7317,
@@ -79,7 +80,7 @@ const properties = [
       rating: 5.0,
       availability: "Apr 26 - May 1",
       tags: ["Most Liked"],
-      price: "$180/night",
+      price: "2 Cr",
       sector: "Via del Chianti",
       fullAddress: "Via del Chianti, Poggibonsi, Siena, Tuscany, Italy, 53036",
       latitude: 43.4707,
@@ -101,8 +102,8 @@ const properties = [
       views: 9324,
       rating: 4.5,
       availability: "May 12 - 18",
-      tags: ["New Listing"],
-      price: "$160/night",
+      tags: ["New"],
+      price: "1.5 Cr",
       sector: "Oak Ridge",
       fullAddress: "Green Valley, Oak Ridge, California, United States, 94534",
       latitude: 38.2736,
@@ -124,7 +125,7 @@ const properties = [
       rating: 4.8,
       availability: "Jun 1 - 6",
       tags: ["Luxury"],
-      price: "$220/night",
+      price: "3 Cr",
       sector: "Ocean Boulevard",
       fullAddress: "Palm Beach, Ocean Boulevard, Florida, United States, 33480",
       latitude: 26.7056,
@@ -146,7 +147,7 @@ const properties = [
       rating: 4.9,
       availability: "Jul 4 - 10",
       tags: ["Exclusive"],
-      price: "$300/night",
+      price: "5 Cr",
       sector: "Rodeo Drive",
       fullAddress: "Beverly Hills, Rodeo Drive, California, United States, 90210",
       latitude: 34.0736,
@@ -168,7 +169,7 @@ const properties = [
       rating: 4.6,
       availability: "Aug 15 - 20",
       tags: ["Hot Deal"],
-      price: "$250/night",
+      price: "2.5 Cr",
       sector: "Central Park West",
       fullAddress:
         "Central Park West, Manhattan, New York, NY, United States, 10024",

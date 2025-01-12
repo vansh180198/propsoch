@@ -30,14 +30,14 @@
     height: 4px;
     margin: 0 5px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5); /* White with 50% opacity */
+    background-color: rgba(255, 255, 255, 0.5);
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
   }
   
   .dot.active {
-    background-color: rgba(255, 255, 255, 1); /* Fully opaque white */
-    transform: scale(1.2); /* Optional: Slightly enlarge active dot for better visibility */
+    background-color: rgba(255, 255, 255, 1); 
+    transform: scale(1.2); 
   }
   

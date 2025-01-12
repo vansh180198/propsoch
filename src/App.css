@@ -8,27 +8,25 @@
   height: 100vh;
 }
 .header {
-  /* height:66px; */
   width:100vw;
   background-color: #FFFFFF;
   padding: 1rem;
   text-align: center;
-  position: fixed; /* Fixed positioning */
+  position: fixed; 
   top: 0;
-  z-index: 1000; /* Keeps it above other content */
+  z-index: 1000; 
 }
 
-/* Footer styles */
 .footer {
   width:100vw;
   background-color: #FFFFFF;  
   padding: 1rem;
   text-align: center;
-  position: fixed; /* Fixed positioning */
+  position: fixed; 
   bottom: 0;
-  z-index: 1000; /* Keeps it above other content */
+  z-index: 1000; 
   }
-
+ 
 .footer-container{
   display:flex;
   justify-content:space-evenly
@@ -38,10 +36,15 @@
   color:#E57601;
   text-decoration:underline
 }
+
+
 .wishlistfallback{
   margin-left:20px;
   padding-top:80px;
 }
+
+
+
 .grid{
   display:flex;
   flex-wrap:wrap;
@@ -54,7 +57,6 @@
 .prop-image{
   width:176.5px;
   height:246px;
-  /* border-radius:16px */
 }
 .card{
   margin-top:12px;
@@ -85,6 +87,7 @@
   color:#888888;
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
+  display:flex
 
 }
 
@@ -92,19 +95,21 @@
   color:#E57601;
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
+  display:flex
 
 }
 .more-rating{
   color:#278717;
   font-family: 'Poppins', sans-serif;
   font-size: 12px;
+  display:flex
 }
 .map-container{
   margin-top:10px
 }
 #map{
-  border-top-left-radius: 8px; /* Top-left corner */
-  border-top-right-radius: 8px; /* Top-right corner */
+  border-top-left-radius: 8px; 
+  border-top-right-radius: 8px;
 }
 .dates{
   font-size: 10px;
@@ -134,6 +139,8 @@ color:#888888
   padding-left:10px;
   padding-right:10px;
   border-radius:16px;
+  display:flex;
+  align-items:center;
 }
 
 
@@ -155,6 +162,9 @@ color:#888888
   height:486px;
   width:389px;
   position:relative;
+  width:95%;
+  min-width:340px;
+  max-width:389px;
 }
 
 .product-details-img{
@@ -172,11 +182,18 @@ color:#888888
 
 .product-address-detials{
   display:flex;
-  width:389px;
-  justify-content:space-between;
+  width:95%;
+  min-width:340px;
+  max-width:389px;  justify-content:space-between;
   font-family: 'Poppins', sans-serif;
+  margin-top:10px;
 
 
+}
+.location-container{
+  width:95%;
+  min-width:340px;
+  max-width:389px;  
 }
 
 .full-address-container{
@@ -212,8 +229,8 @@ margin-top:10px;
   display:flex;
   justify-content:center;
   padding:8px;
-  border-bottom-left-radius: 8px; /* Top-left corner */
-  border-bottom-right-radius: 8px; /* Top-right corner */
+  border-bottom-left-radius: 8px; 
+  border-bottom-right-radius: 8px;
 }
 
 .facilities-container{

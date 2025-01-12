@@ -18,6 +18,8 @@ const mapStyles = [
 ];
 
 const Map = ({latitude,longitude}) => {
+    console.log(import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
+    
   const center = { lat: latitude, lng: longitude };
 
   useEffect(() => {

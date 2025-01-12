@@ -70,7 +70,7 @@ const properties = [
     views: 9324,
     rating: 4.5,
     availability: "May 12 - 18",
-    tags: ["New Listing"],
+    tags: ["New"],
     images: [
       "https://i.pinimg.com/236x/a7/a2/14/a7a214785bb64212455d72f0c3d18977.jpg",
       "https://i.pinimg.com/236x/f4/d8/24/f4d824dca3de341d6f242c2659e2d81e.jpg",
@@ -131,6 +131,8 @@ const Grid = () => {
   return (
     <div className="grid">
       {properties.map((prop) => (
+        <Link className="custom-link" to={`/product/${prop.id}`}>
+        
         <div className="card" key={prop.id}>
           <div className="img-container">
             <div className="img-header">
@@ -140,7 +142,9 @@ const Grid = () => {
                 {prop.tags.length > 0 ? prop.tags[0] : ""}
               </span>
               <img
-                onClick={() => toggleWishlist(prop.id)}
+                onClick={() =>{ 
+                    e.preventDefault();
+                    toggleWishlist(prop.id)}}
                 src={
                   wishlist.includes(prop.id) ? "/heart(1).svg" : "/heart.svg"
                 }
@@ -151,7 +155,6 @@ const Grid = () => {
               <ImageSlider images={prop.images} />
             </div>
           </div>
-          <Link className="custom-link" to={`/product/${prop.id}`}>
             <div className="middle-container">
               <div className="views"><img              
                 src="/Show.svg"
@@ -167,8 +170,9 @@ const Grid = () => {
             </div>
             <div className="prop-address">{prop.address}</div>
             <div className="dates">{prop.availability}</div>
-          </Link>
+          
         </div>
+        </Link>
       ))}
     </div>
   );
