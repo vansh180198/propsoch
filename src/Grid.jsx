@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState,useRef,useEffect } from "react";
 import { WishlistContext, WishlistProvider } from "./WishlistContext";
 import ImageSlider from "./ImageSlider";
 import { Link } from "react-router-dom";
@@ -125,56 +125,130 @@ const properties = [
     ],
   },
 ];
+
+
+const ITEMS_PER_LOAD = 4; // Number of properties to load in one batch
+
 const Grid = () => {
   const { wishlist, toggleWishlist } = useContext(WishlistContext);
 
-  return (
+  const [displayedProperties, setDisplayedProperties] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const loaderRef = useRef(null);
+
+  // Load properties in chunks
+  const loadMoreProperties = () => {
+    const start = displayedProperties.length;
+    const end = start + ITEMS_PER_LOAD;
+
+    const nextChunk = properties.slice(start, end);
+    setDisplayedProperties((prev) => [...prev, ...nextChunk]);
+
+    // Stop loading if no more data is available
+    if (end >= properties.length) {
+      setHasMore(false);
+    }
+  };
+
+  // Use Intersection Observer to detect when to load more properties
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && hasMore) {
+          loadMoreProperties();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "20px",
+        threshold: 1.0,
+      }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, [hasMore]);
+
+  // Initial load
+  useEffect(() => {
+    loadMoreProperties();
+  }, []);
+
+  return (<>
     <div className="grid">
-      {properties.map((prop) => (
-        <Link className="custom-link" to={`/product/${prop.id}`}>
-        
-        <div className="card" key={prop.id}>
-          <div className="img-container">
-            <div className="img-header">
-              <span
-                className={`tag ${prop.tags.length === 0 ? "tag-empty" : ""}`}
-              >
-                {prop.tags.length > 0 ? prop.tags[0] : ""}
-              </span>
-              <img
-                onClick={(e) =>{ 
+      {displayedProperties.map((prop) => (
+        <Link className="custom-link" to={`/product/${prop.id}`} key={prop.id}>
+          <div className="card">
+            <div className="img-container">
+              <div className="img-header">
+                <span
+                  className={`tag ${prop.tags.length === 0 ? "tag-empty" : ""}`}
+                >
+                  {prop.tags.length > 0 ? prop.tags[0] : ""}
+                </span>
+                <img
+                  onClick={(e) => {
                     e.preventDefault();
-                    toggleWishlist(prop.id)}}
-                src={
-                  wishlist.includes(prop.id) ? "/heart(1).svg" : "/heart.svg"
-                }
-                alt="Wishlist Icon"
-              />
+                    e.stopPropagation();
+                    toggleWishlist(prop.id);
+                  }}
+                  src={
+                    wishlist.includes(prop.id) ? "/heart(1).svg" : "/heart.svg"
+                  }
+                  alt="Wishlist Icon"
+                />
+              </div>
+              <div className="prop-image">
+                <ImageSlider images={prop.images} />
+              </div>
             </div>
-            <div className="prop-image">
-              <ImageSlider images={prop.images} />
-            </div>
-          </div>
             <div className="middle-container">
-              <div className="views"><img              
-                src="/Show.svg"
-                
-                
-              />{prop.views}</div>
-              <div className={prop.rating>4?"more-rating":"less-rating"}><img              
-                src={
-                  prop.rating<4? "/Star.svg" : "/Star_green.svg"
-                }
-                
-              />{prop.rating}</div>
+              <div className="views">
+                <img src="/Show.svg" alt="Views Icon" />
+                {prop.views}
+              </div>
+              <div
+                className={prop.rating > 4 ? "more-rating" : "less-rating"}
+              >
+                <img
+                  src={prop.rating < 4 ? "/Star.svg" : "/Star_green.svg"}
+                  alt="Rating Icon"
+                />
+                {prop.rating}
+              </div>
             </div>
             <div className="prop-address">{prop.address}</div>
             <div className="dates">{prop.availability}</div>
-          
-        </div>
+          </div>
         </Link>
       ))}
+
     </div>
+    {/* Loader indicator */}
+    {hasMore && (
+        <div
+          ref={loaderRef}
+          style={{
+            height: "50px",
+            textAlign: "center",
+            fontSize: "16px",
+            fontWeight: "bold",
+            marginTop: "10px",
+            paddingBottom:'90px'
+          }}
+        >
+          Loading more...
+        </div>
+      )}
+    </>
   );
 };
 
