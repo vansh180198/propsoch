@@ -144,6 +144,12 @@ const Grid = () => {
     const nextChunk = properties.slice(start, end);
     setDisplayedProperties((prev) => [...prev, ...nextChunk]);
 
+     // Scroll up slightly
+  window.scrollBy({
+    top: -20, // Adjust this value to control how much to scroll up
+    behavior: "smooth",
+  });
+
     // Stop loading if no more data is available
     if (end >= properties.length) {
       setHasMore(false);
